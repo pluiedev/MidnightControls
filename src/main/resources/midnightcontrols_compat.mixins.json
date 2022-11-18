@@ -1,12 +1,13 @@
 {
-  "required": true,
-  "package": "eu.midnightdust.midnightcontrols.client.compat.mixin",
-  "plugin": "eu.midnightdust.midnightcontrols.client.compat.MidnightControlsMixinPlugin",
-  "compatibilityLevel": "JAVA_16",
-  "client": [
-    "SodiumOptionsGUIAccessor"
-  ],
-  "injectors": {
-    "defaultRequire": 1
+    "required": true,
+    "package": "eu.midnightdust.midnightcontrols.client.compat.mixin",
+    "plugin": "eu.midnightdust.midnightcontrols.client.compat.MidnightControlsMixinPlugin",
+    "compatibilityLevel": "JAVA_16",
+    "client": [
+        "LinkedControllerClientHandlerMixin",
+        "SodiumOptionsGUIAccessor"
+    ],
+    "injectors": {
+        "defaultRequire": 1
   }
 }

@@ -13,6 +13,7 @@ import eu.midnightdust.midnightcontrols.client.ButtonState;
 import eu.midnightdust.midnightcontrols.client.MidnightControlsClient;
 import eu.midnightdust.midnightcontrols.client.MidnightControlsConfig;
 import eu.midnightdust.midnightcontrols.client.MidnightInput;
+import eu.midnightdust.midnightcontrols.client.compat.CreateCompat;
 import eu.midnightdust.midnightcontrols.client.compat.InventoryTabsCompat;
 import eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat;
 import eu.midnightdust.midnightcontrols.client.compat.SodiumCompat;
@@ -24,14 +25,11 @@ import eu.midnightdust.midnightcontrols.client.util.HandledScreenAccessor;
 import eu.midnightdust.midnightcontrols.client.util.MouseAccessor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.hud.SpectatorHud;
-import net.minecraft.client.gui.hud.spectator.SpectatorMenu;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.advancement.AdvancementsScreen;
 import net.minecraft.client.gui.screen.ingame.*;
 import net.minecraft.client.gui.screen.recipebook.RecipeBookWidget;
 import net.minecraft.client.gui.widget.PressableWidget;
-import net.minecraft.client.input.Input;
 import net.minecraft.client.util.ScreenshotRecorder;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.screen.slot.Slot;
@@ -44,7 +42,6 @@ import org.lwjgl.glfw.GLFW;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_2;
@@ -381,6 +378,9 @@ public class InputHandlers {
      * @return true if the client is in game, else false
      */
     public static boolean inGame(@NotNull MinecraftClient client, @NotNull ButtonBinding binding) {
+        // controller overrides all inputs
+        if (CreateCompat.isOverriddenByController(client, binding)) return false;
+
         return (client.currentScreen == null && MidnightControlsClient.get().input.screenCloseCooldown <= 0) || client.currentScreen instanceof RingScreen;
     }
 

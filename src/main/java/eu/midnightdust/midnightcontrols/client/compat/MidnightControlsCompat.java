@@ -57,6 +57,10 @@ public class MidnightControlsCompat {
             mod.log("Adding Bedrockify compatibility...");
             HANDLERS.add(new BedrockifyCompat());
         }
+        if (FabricLoader.getInstance().isModLoaded("create")) {
+            mod.log("Adding Create compatibility...");
+            HANDLERS.add(new CreateCompat());
+        }
         HANDLERS.forEach(handler -> handler.handle(mod));
         InputManager.loadButtonBindings();
     }
